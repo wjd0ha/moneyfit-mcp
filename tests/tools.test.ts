@@ -254,6 +254,7 @@ describe("find_relevant_programs", () => {
     const result = await findRelevantPrograms(profile, "2026-06-27");
     expect(result.programs.length).toBeGreaterThan(0);
     expect(result.programs[0].title).toContain("생애 최초");
+    expect(result.missingFields).toEqual([]);
     expect(result.programs[0].matchedReasons.length).toBeGreaterThan(0);
     expect(result.programs[0].matchedReasons.some((reason) => reason.includes("41세"))).toBe(true);
     expect(result.programs[0].nextAction).not.toContain("선정");

@@ -42,10 +42,13 @@ export async function findRelevantPrograms(
     .map((program) => rankProgram(businessProfile, program, today))
     .sort((a, b) => b.reviewFitScore - a.reviewFitScore)
     .slice(0, 5);
+  const hasUsefulCandidate = results.some((program) => program.reviewFitScore >= 60);
 
   return {
     programs: results,
-    missingFields: businessProfile.missingFields,
+    // 후보가 충분히 있으면 먼저 결과를 보여준다. 부족 정보는 각 후보의 cautions로만 남겨
+    // 사용자가 "더 말해야만 진행되는" 느낌을 줄인다.
+    missingFields: hasUsefulCandidate ? [] : businessProfile.missingFields,
     disclaimer: STANDARD_DISCLAIMER
   };
 }

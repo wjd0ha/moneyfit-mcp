@@ -88,7 +88,7 @@ export function createSajangnimSupportMcpServer(): McpServer {
     {
       title: "맞춤 공고 찾기",
       description:
-        "Finds relevant support program candidates from MoneyFit(사장님 머니핏)'s local curated notice database using a structured business profile. It returns review fit scores, matched reasons, cautions, and next actions without guaranteeing selection or funding.",
+        "Finds relevant support program candidates from MoneyFit(사장님 머니핏)'s local curated notice database using a structured business profile. If useful candidates exist, present them first and ask follow-up questions only as optional refinements. It returns review fit scores, matched reasons, cautions, and next actions without guaranteeing selection or funding.",
       annotations: readOnlyAnnotations("Find relevant programs"),
       inputSchema: {
         businessProfile: businessProfileSchema,
