@@ -1,0 +1,374 @@
+[
+  {
+    "name": "지역·유형·업력·업종 모두 충족 → 검토 가능",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "서울",
+      "yearsInBusiness": 2,
+      "businessType": "음식점/카페",
+      "fundingPurpose": "디지털 전환",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 AI 바우처",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인", "개인사업자"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": ["유흥/사행성"],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": "최대 500만원",
+      "deadline": "2026-08-29",
+      "requiredDocuments": ["사업자등록증"],
+      "evaluationCriteria": ["AI 활용 적합성"],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "HIGHLY_LIKELY"
+  },
+  {
+    "name": "전국·업력무관·제외업종 아님 → 검토 가능",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "경기",
+      "yearsInBusiness": 5,
+      "businessType": "도소매/전자상거래",
+      "fundingPurpose": "마케팅/판로",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "전국 스마트상점 지원",
+      "organization": "샘플기관",
+      "regions": ["전국"],
+      "eligibleBusinessForms": ["소상공인", "개인사업자", "법인"],
+      "targetBusinessTypes": [],
+      "excludedBusinessTypes": ["유흥/사행성"],
+      "minYearsInBusiness": null,
+      "maxYearsInBusiness": null,
+      "support": "최대 300만원",
+      "deadline": "2026-09-30",
+      "requiredDocuments": ["사업자등록증"],
+      "evaluationCriteria": ["디지털 전환 필요성"],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "HIGHLY_LIKELY"
+  },
+  {
+    "name": "사업장 지역이 공고 지역과 다름 → 부적합",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "부산",
+      "yearsInBusiness": 2,
+      "businessType": "음식점/카페",
+      "fundingPurpose": null,
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 전용 공고",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-08-29",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [{ "field": "regions", "text": "신청대상: 서울특별시 소재 소상공인" }],
+      "missingFields": []
+    },
+    "expectedVerdict": "NOT_ELIGIBLE"
+  },
+  {
+    "name": "업력 상한 초과 → 부적합",
+    "businessProfile": {
+      "businessForm": "법인",
+      "isRegistered": true,
+      "region": "대전",
+      "yearsInBusiness": 10,
+      "businessType": "IT/소프트웨어",
+      "fundingPurpose": "R&D/사업화",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "대전 기술창업 R&D",
+      "organization": "샘플기관",
+      "regions": ["대전"],
+      "eligibleBusinessForms": ["법인", "개인사업자"],
+      "targetBusinessTypes": ["IT/소프트웨어"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 0,
+      "maxYearsInBusiness": 7,
+      "support": null,
+      "deadline": "2026-09-05",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [{ "field": "yearsInBusiness", "text": "창업 7년 이내 기업" }],
+      "missingFields": []
+    },
+    "expectedVerdict": "NOT_ELIGIBLE"
+  },
+  {
+    "name": "예비창업 전용 공고인데 이미 등록 사업자 → 부적합",
+    "businessProfile": {
+      "businessForm": "개인사업자",
+      "isRegistered": true,
+      "region": "서울",
+      "yearsInBusiness": 2,
+      "businessType": "도소매/전자상거래",
+      "fundingPurpose": "창업자금",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "예비창업패키지",
+      "organization": "샘플기관",
+      "regions": ["전국"],
+      "eligibleBusinessForms": ["예비창업자"],
+      "targetBusinessTypes": [],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 0,
+      "maxYearsInBusiness": 0,
+      "support": null,
+      "deadline": "2026-08-14",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [{ "field": "eligibleBusinessForms", "text": "사업자등록 이력이 없는 예비창업자" }],
+      "missingFields": []
+    },
+    "expectedVerdict": "NOT_ELIGIBLE"
+  },
+  {
+    "name": "기존 사업자 대상 공고인데 예비창업 단계 → 부적합",
+    "businessProfile": {
+      "businessForm": "예비창업자",
+      "isRegistered": false,
+      "region": "서울",
+      "yearsInBusiness": 0,
+      "businessType": "음식점/카페",
+      "fundingPurpose": "창업자금",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 운영자금",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인", "개인사업자"],
+      "targetBusinessTypes": [],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-09-30",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "NOT_ELIGIBLE"
+  },
+  {
+    "name": "업종이 제외 업종에 해당 → 부적합",
+    "businessProfile": {
+      "businessForm": "개인사업자",
+      "isRegistered": true,
+      "region": "서울",
+      "yearsInBusiness": 3,
+      "businessType": "유흥/사행성",
+      "fundingPurpose": null,
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 지원",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["개인사업자", "소상공인"],
+      "targetBusinessTypes": [],
+      "excludedBusinessTypes": ["유흥/사행성"],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-09-30",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [{ "field": "excludedBusinessTypes", "text": "유흥·사행성 업종 지원 제외" }],
+      "missingFields": []
+    },
+    "expectedVerdict": "NOT_ELIGIBLE"
+  },
+  {
+    "name": "지역 정보 미입력 → 판단 불가",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": null,
+      "yearsInBusiness": 2,
+      "businessType": "음식점/카페",
+      "fundingPurpose": null,
+      "keywords": [],
+      "missingFields": ["region"],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 전용 공고",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-08-29",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "INSUFFICIENT_INFO"
+  },
+  {
+    "name": "업력 정보 미입력 → 판단 불가",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "서울",
+      "yearsInBusiness": null,
+      "businessType": "음식점/카페",
+      "fundingPurpose": null,
+      "keywords": [],
+      "missingFields": ["yearsInBusiness"],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 운영자금",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-09-30",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "INSUFFICIENT_INFO"
+  },
+  {
+    "name": "사업자 유형·등록여부 모두 불명확 → 판단 불가",
+    "businessProfile": {
+      "businessForm": null,
+      "isRegistered": null,
+      "region": "서울",
+      "yearsInBusiness": 2,
+      "businessType": "음식점/카페",
+      "fundingPurpose": null,
+      "keywords": [],
+      "missingFields": ["businessForm", "isRegistered"],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 운영자금",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인", "개인사업자"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-09-30",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "INSUFFICIENT_INFO"
+  },
+  {
+    "name": "결격은 없으나 업종이 대상 목록에 미명시 → 조건부",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "서울",
+      "yearsInBusiness": 3,
+      "businessType": "제조업",
+      "fundingPurpose": "시설/장비",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "서울 소상공인 음식점 지원",
+      "organization": "샘플기관",
+      "regions": ["서울"],
+      "eligibleBusinessForms": ["소상공인"],
+      "targetBusinessTypes": ["음식점/카페"],
+      "excludedBusinessTypes": ["유흥/사행성"],
+      "minYearsInBusiness": 1,
+      "maxYearsInBusiness": null,
+      "support": null,
+      "deadline": "2026-08-29",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "CONDITIONAL"
+  },
+  {
+    "name": "소상공인인데 공고는 개인사업자·법인만 명시 → 조건부",
+    "businessProfile": {
+      "businessForm": "소상공인",
+      "isRegistered": true,
+      "region": "대전",
+      "yearsInBusiness": 3,
+      "businessType": "IT/소프트웨어",
+      "fundingPurpose": "R&D/사업화",
+      "keywords": [],
+      "missingFields": [],
+      "summary": ""
+    },
+    "programRequirements": {
+      "title": "대전 기술창업 R&D",
+      "organization": "샘플기관",
+      "regions": ["대전"],
+      "eligibleBusinessForms": ["개인사업자", "법인"],
+      "targetBusinessTypes": ["IT/소프트웨어"],
+      "excludedBusinessTypes": [],
+      "minYearsInBusiness": 0,
+      "maxYearsInBusiness": 7,
+      "support": null,
+      "deadline": "2026-09-05",
+      "requiredDocuments": [],
+      "evaluationCriteria": [],
+      "evidence": [],
+      "missingFields": []
+    },
+    "expectedVerdict": "CONDITIONAL"
+  }
+]

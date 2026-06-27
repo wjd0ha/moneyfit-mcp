@@ -1,0 +1,252 @@
+[
+  {
+    "title": "2026년 생애 최초 경영안정화 교육지원",
+    "organization": "경기도시장상권진흥원",
+    "sourceUrl": "https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?hashCode=09&rowsSel=6&rows=15&cpage=1&cat=&schPblancDiv=&schJrsdCodeTy=&schWntyAt=&schAreaDetailCodes=6410000&schEndAt=N&orderGb=&sort=&preKeywords=&condition=searchPblancNm&condition1=AND&keyword=&pblancId=PBLN_000000000122789",
+    "sourceDate": "2026-06-27",
+    "target": "공고일 기준 경기도 1년 이상 거주, 도내 창업 희망, 만 40세 이상, 사업자등록 이력이 없는 예비창업자",
+    "support": "창업 교육, 전문가 컨설팅, 우수창업가 사업화지원 최대 1천만원, 홍보마케팅, 창업자금 이자비 지원",
+    "deadline": null,
+    "regions": ["경기"],
+    "eligibleBusinessForms": ["예비창업자"],
+    "targetBusinessTypes": [],
+    "excludedBusinessTypes": [],
+    "minYearsInBusiness": null,
+    "maxYearsInBusiness": 0,
+    "additionalEligibilityConditions": [
+      "경기도 1년 이상 거주 여부 확인 필요",
+      "도내 창업 희망 여부 확인 필요",
+      "만 40세 이상 여부 확인 필요",
+      "국세청 사업자등록 이력 없음 확인 필요"
+    ],
+    "requiredDocuments": [],
+    "evaluationCriteria": [],
+    "evidence": [
+      {
+        "field": "regions",
+        "text": "공고일 기준 경기도 1년 이상 거주"
+      },
+      {
+        "field": "eligibleBusinessForms",
+        "text": "사업자등록 이력이 없는 예비창업자"
+      },
+      {
+        "field": "yearsInBusiness",
+        "text": "사업자등록 이력이 없는 자"
+      },
+      {
+        "field": "additionalEligibilityConditions",
+        "text": "도내 창업 희망, 만 40세 이상"
+      }
+    ],
+    "missingFields": ["deadline", "requiredDocuments", "evaluationCriteria"],
+    "sample": true
+  },
+  {
+    "title": "2026년 경기 창업 공모 G스타 오디션 도약리그",
+    "organization": "경기도경제과학진흥원",
+    "sourceUrl": "https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?hashCode=09&rowsSel=6&rows=15&cpage=1&cat=&schPblancDiv=&schJrsdCodeTy=&schWntyAt=&schAreaDetailCodes=6410000&schEndAt=N&orderGb=&sort=&preKeywords=&condition=searchPblancNm&condition1=AND&keyword=&pblancId=PBLN_000000000122850",
+    "sourceDate": "2026-06-27",
+    "target": "경기도 거주 예비창업가 및 경기도 소재 7년 이내 창업자. 신산업분야는 10년 이내 예외 조건 확인 필요",
+    "support": "총 상금 5천만원 시상, 상장 수여, 결선참가자 대상 역량강화 프로그램 지원",
+    "deadline": "2026-06-30",
+    "regions": ["경기"],
+    "eligibleBusinessForms": ["예비창업자", "개인사업자", "법인"],
+    "targetBusinessTypes": ["IT/소프트웨어", "제조업"],
+    "excludedBusinessTypes": [],
+    "minYearsInBusiness": 0,
+    "maxYearsInBusiness": 7,
+    "additionalEligibilityConditions": [
+      "경기도 거주 또는 경기도 소재 여부 확인 필요",
+      "신산업분야는 10년 이내 예외 적용 여부 확인 필요",
+      "참가분야가 AI, ICT, 반도체, 모빌리티, 친환경·에너지, 로봇, 바이오·헬스 등인지 확인 필요"
+    ],
+    "requiredDocuments": [],
+    "evaluationCriteria": [],
+    "evidence": [
+      {
+        "field": "regions",
+        "text": "경기도 거주 예비 창업가 및 경기도 소재 창업자"
+      },
+      {
+        "field": "yearsInBusiness",
+        "text": "7년 이내 창업자, 신산업분야 10년 이내"
+      },
+      {
+        "field": "targetBusinessTypes",
+        "text": "AI, ICT, 반도체, 모빌리티, 친환경·에너지, 로봇, 바이오·헬스 등"
+      },
+      {
+        "field": "support",
+        "text": "총 상금 5천만원 시상 및 역량강화 프로그램 지원"
+      }
+    ],
+    "missingFields": ["requiredDocuments", "evaluationCriteria"],
+    "sample": true
+  },
+  {
+    "title": "2026년 화성시 청년 창업 컨설팅 지원",
+    "organization": "화성시",
+    "sourceUrl": "https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?hashCode=09&rowsSel=6&rows=15&cpage=1&cat=&schPblancDiv=&schJrsdCodeTy=&schWntyAt=&schAreaDetailCodes=6410000&schEndAt=N&orderGb=&sort=&preKeywords=&condition=searchPblancNm&condition1=AND&keyword=&pblancId=PBLN_000000000120254",
+    "sourceDate": "2026-06-27",
+    "target": "신청일 현재 화성시에 거주하는 19~39세 관내 예비창업 또는 창업 청년",
+    "support": "창업 전문 컨설턴트 1:1 매칭, 2회 컨설팅 진행",
+    "deadline": "2026-06-30",
+    "regions": ["화성"],
+    "eligibleBusinessForms": ["예비창업자", "개인사업자", "법인"],
+    "targetBusinessTypes": [],
+    "excludedBusinessTypes": [],
+    "minYearsInBusiness": null,
+    "maxYearsInBusiness": null,
+    "additionalEligibilityConditions": [
+      "화성시 거주 여부 확인 필요",
+      "19~39세 청년 여부 확인 필요",
+      "관내 창업 또는 창업 예정 여부 확인 필요"
+    ],
+    "requiredDocuments": [],
+    "evaluationCriteria": [],
+    "evidence": [
+      {
+        "field": "regions",
+        "text": "화성시에 거주하는 청년"
+      },
+      {
+        "field": "eligibleBusinessForms",
+        "text": "관내 예비창업 또는 창업 청년"
+      },
+      {
+        "field": "additionalEligibilityConditions",
+        "text": "19~39세, 화성시 거주"
+      },
+      {
+        "field": "support",
+        "text": "창업 전문 컨설턴트 1:1 매칭, 2회 컨설팅"
+      }
+    ],
+    "missingFields": ["requiredDocuments", "evaluationCriteria"],
+    "sample": true
+  },
+  {
+    "title": "2026년 데이터바우처 지원사업 수요기업 모집",
+    "organization": "한국데이터산업진흥원",
+    "sourceUrl": "https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/view.do?pblancId=PBLN_000000000104385",
+    "sourceDate": "2026-06-27",
+    "target": "데이터 활용 과제를 추진하려는 중소기업, 소상공인, 예비창업자, 공공·연구기관, 대학연구팀 등",
+    "support": "데이터 기획·설계·구매·수집·생성·가공·분석 바우처 지원. 일반부문 최대 4,500만원, 공개·활용부문 최대 7,500만원",
+    "deadline": "2026-03-31",
+    "regions": ["전국"],
+    "eligibleBusinessForms": ["예비창업자", "개인사업자", "법인", "소상공인", "기타"],
+    "targetBusinessTypes": [],
+    "excludedBusinessTypes": [],
+    "minYearsInBusiness": null,
+    "maxYearsInBusiness": null,
+    "additionalEligibilityConditions": [
+      "공급기업과 과제협의 및 견적서 준비 필요",
+      "사업수행계획서와 발표자료 준비 필요",
+      "민간부담금 적용 여부 확인 필요",
+      "동일·유사 정부지원사업 중복 여부 확인 필요",
+      "공개·활용부문은 공개활용 확약 등 별도 조건 확인 필요"
+    ],
+    "requiredDocuments": [
+      "사업수행계획서",
+      "발표자료",
+      "과제협의서",
+      "견적서",
+      "국세 납세증명서",
+      "지방세 납세증명서",
+      "사업자등록증 또는 사실증명",
+      "중소기업확인서 또는 소상공인확인서",
+      "개인정보 수집·이용 동의서"
+    ],
+    "evaluationCriteria": [
+      "과제 목표의 타당성",
+      "추진계획의 구체성 및 실현가능성",
+      "활용성 및 시장성",
+      "성장성"
+    ],
+    "evidence": [
+      {
+        "field": "eligibleBusinessForms",
+        "text": "중소기업, 소상공인, 예비창업자, 공공·연구기관, 대학연구팀 등"
+      },
+      {
+        "field": "support",
+        "text": "일반부문 최대 4,500만원, 공개·활용부문 최대 7,500만원"
+      },
+      {
+        "field": "deadline",
+        "text": "2026.02.27 ~ 03.31 18:00"
+      },
+      {
+        "field": "requiredDocuments",
+        "text": "사업수행계획서, 발표자료, 과제협의서, 견적서 등"
+      },
+      {
+        "field": "evaluationCriteria",
+        "text": "과제 목표의 타당성, 추진계획, 활용성·시장성, 성장성"
+      }
+    ],
+    "missingFields": [],
+    "sample": true
+  },
+  {
+    "title": "2026년 스마트상점 기술보급사업 참여 소상공인 모집",
+    "organization": "소상공인시장진흥공단",
+    "sourceUrl": "https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/view.do?pblancId=PBLN_000000000104847",
+    "sourceDate": "2026-06-27",
+    "target": "소상공인기본법 제2조에 따른 소상공인으로 신청일 현재 정상 영업 중인 점포",
+    "support": "배리어프리 키오스크, 서빙로봇, 사이니지, 경영지원 S/W 등 스마트기술 도입 지원. 유형별 지원한도와 국비 지원비율은 공고 원문 확인 필요",
+    "deadline": "2026-04-01",
+    "regions": ["전국"],
+    "eligibleBusinessForms": ["소상공인"],
+    "targetBusinessTypes": [],
+    "excludedBusinessTypes": ["유흥/사행성", "부동산/임대업", "금융/보험업"],
+    "minYearsInBusiness": null,
+    "maxYearsInBusiness": null,
+    "additionalEligibilityConditions": [
+      "신청일 현재 정상적으로 영업 중인 점포 여부 확인 필요",
+      "소상공인확인서 발급 가능 여부 확인 필요",
+      "대표자 본인 신청 여부 확인 필요",
+      "세금 체납 여부 확인 필요",
+      "기존 스마트상점 기술보급사업 수혜 이력 확인 필요",
+      "자부담 및 지원비율 확인 필요"
+    ],
+    "requiredDocuments": [
+      "소상공인확인서",
+      "사업자등록증명원",
+      "건강보험자격득실확인서",
+      "장애인기업확인서 또는 장애인증명서(해당 시)",
+      "간이과세자 확인용 사업자등록증명원(해당 시)"
+    ],
+    "evaluationCriteria": [
+      "도입필요성 및 추진의지",
+      "실행가능성 및 운영역량",
+      "사업이해도 및 참여적정성",
+      "기술적합성"
+    ],
+    "evidence": [
+      {
+        "field": "eligibleBusinessForms",
+        "text": "소상공인기본법 제2조에 따른 소상공인"
+      },
+      {
+        "field": "additionalEligibilityConditions",
+        "text": "신청일 현재 정상적으로 영업 중인 점포"
+      },
+      {
+        "field": "deadline",
+        "text": "2026년 3월 13일 10시 ~ 4월 1일 17시"
+      },
+      {
+        "field": "requiredDocuments",
+        "text": "소상공인확인서, 사업자등록증명원, 건강보험자격득실확인서 등"
+      },
+      {
+        "field": "evaluationCriteria",
+        "text": "도입필요성, 실행가능성, 사업이해도, 기술적합성"
+      }
+    ],
+    "missingFields": [],
+    "sample": true
+  }
+]
