@@ -9,6 +9,7 @@ import { normalize } from "../text/lexicon.js";
 import { checkEligibility } from "./checkEligibility.js";
 
 export interface RelevantProgram {
+  rank: number;
   programId: string;
   title: string;
   organization: string;
@@ -24,8 +25,10 @@ export interface RelevantProgram {
 }
 
 export interface FindRelevantProgramsResult {
+  answerMarkdown: string;
   programs: RelevantProgram[];
   missingFields: string[];
+  followUpQuestions: string[];
   disclaimer: string;
 }
 
@@ -41,14 +44,18 @@ export async function findRelevantPrograms(
   const results = programs
     .map((program) => rankProgram(businessProfile, program, today))
     .sort((a, b) => b.reviewFitScore - a.reviewFitScore)
+    .map((program, index) => ({ ...program, rank: index + 1 }))
     .slice(0, 5);
   const hasUsefulCandidate = results.some((program) => program.reviewFitScore >= 60);
+  const followUpQuestions = buildFollowUpQuestions(businessProfile.missingFields);
 
   return {
+    answerMarkdown: buildAnswerMarkdown(results, hasUsefulCandidate, followUpQuestions),
     programs: results,
     // 후보가 충분히 있으면 먼저 결과를 보여준다. 부족 정보는 각 후보의 cautions로만 남겨
     // 사용자가 "더 말해야만 진행되는" 느낌을 줄인다.
     missingFields: hasUsefulCandidate ? [] : businessProfile.missingFields,
+    followUpQuestions,
     disclaimer: STANDARD_DISCLAIMER
   };
 }
@@ -79,6 +86,7 @@ function rankProgram(profile: BusinessProfile, program: CuratedProgram, today: s
   const matchedReasons = buildMatchedReasons(profile, program, eligibility, keywordScore);
 
   return {
+    rank: 0,
     programId: extractProgramId(program),
     title: program.title ?? "제목 미상",
     organization: program.organization ?? "기관 미상",
@@ -92,6 +100,62 @@ function rankProgram(profile: BusinessProfile, program: CuratedProgram, today: s
     cautions: Array.from(new Set(cautions)),
     nextAction: nextActionFor(eligibility, deadline.status)
   };
+}
+
+function buildAnswerMarkdown(
+  programs: RelevantProgram[],
+  hasUsefulCandidate: boolean,
+  followUpQuestions: string[]
+): string {
+  if (programs.length === 0) {
+    return [
+      "현재 입력 정보로는 바로 보여드릴 후보 공고를 찾지 못했습니다.",
+      followUpQuestions.length > 0 ? `더 정확히 보려면 ${followUpQuestions.join(", ")}를 알려주세요.` : "",
+      STANDARD_DISCLAIMER
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  }
+
+  const topPrograms = programs.slice(0, 3);
+  const lines = [
+    hasUsefulCandidate
+      ? "현재 정보 기준으로 먼저 검토해볼 만한 공고가 있습니다."
+      : "현재 정보만으로는 정확한 판단에 한계가 있지만, 참고할 만한 후보를 정리했습니다."
+  ];
+
+  for (const program of topPrograms) {
+    const reasons = program.matchedReasons.slice(0, 2).map((reason) => `  - ${reason}`);
+    const cautions = program.cautions.slice(0, 2).map((caution) => `  - 주의: ${caution}`);
+    lines.push(
+      [
+        `${program.rank}. ${program.title} (${program.reviewFitLevel}, ${program.reviewFitScore}점)`,
+        `- 기관: ${program.organization}`,
+        `- 지원: ${program.support ?? "공고 원문 확인 필요"}`,
+        `- 마감: ${program.deadline ?? "공고 원문에서 접수 가능 상태 확인 필요"}`,
+        ...reasons,
+        ...cautions,
+        `- 다음 행동: ${program.nextAction}`
+      ].join("\n")
+    );
+  }
+
+  if (followUpQuestions.length > 0) {
+    lines.push(`더 정확히 좁히려면 ${followUpQuestions.join(", ")}를 알려주세요.`);
+  }
+
+  lines.push(STANDARD_DISCLAIMER);
+  return lines.join("\n\n");
+}
+
+function buildFollowUpQuestions(missingFields: string[]): string[] {
+  const questions: string[] = [];
+  if (missingFields.includes("businessType")) questions.push("창업하려는 업종");
+  if (missingFields.includes("fundingPurpose")) questions.push("필요한 지원 목적");
+  if (missingFields.includes("region")) questions.push("사업장 또는 창업 예정 지역");
+  if (missingFields.includes("yearsInBusiness")) questions.push("사업자등록 여부와 업력");
+  if (missingFields.includes("businessForm")) questions.push("예비창업자/개인사업자/법인/소상공인 여부");
+  return questions;
 }
 
 function baseScore(eligibility: EligibilityResult): number {

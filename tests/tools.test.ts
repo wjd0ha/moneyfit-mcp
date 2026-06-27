@@ -253,11 +253,37 @@ describe("find_relevant_programs", () => {
 
     const result = await findRelevantPrograms(profile, "2026-06-27");
     expect(result.programs.length).toBeGreaterThan(0);
+    expect(result.programs[0].rank).toBe(1);
     expect(result.programs[0].title).toContain("생애 최초");
+    expect(result.answerMarkdown).toContain("현재 정보 기준");
+    expect(result.answerMarkdown).toContain("생애 최초");
     expect(result.missingFields).toEqual([]);
+    expect(result.followUpQuestions).toEqual([]);
     expect(result.programs[0].matchedReasons.length).toBeGreaterThan(0);
     expect(result.programs[0].matchedReasons.some((reason) => reason.includes("41세"))).toBe(true);
     expect(result.programs[0].nextAction).not.toContain("선정");
+  });
+
+  it("업종과 목적이 비어도 유용한 후보가 있으면 먼저 보여주고 보완 질문은 별도로 제공한다", async () => {
+    clearProgramsCache();
+    const profile: BusinessProfile = {
+      businessForm: "예비창업자",
+      isRegistered: false,
+      age: 41,
+      region: "경기",
+      yearsInBusiness: 0,
+      businessType: null,
+      fundingPurpose: null,
+      keywords: ["경기", "예비창업"],
+      missingFields: ["businessType", "fundingPurpose"],
+      summary: "만 41세 경기도 예비창업자"
+    };
+
+    const result = await findRelevantPrograms(profile, "2026-06-28");
+    expect(result.programs[0].title).toContain("생애 최초");
+    expect(result.missingFields).toEqual([]);
+    expect(result.followUpQuestions).toEqual(expect.arrayContaining(["창업하려는 업종", "필요한 지원 목적"]));
+    expect(result.answerMarkdown).toContain("더 정확히 좁히려면");
   });
 });
 

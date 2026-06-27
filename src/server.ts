@@ -95,8 +95,10 @@ export function createSajangnimSupportMcpServer(): McpServer {
         today: z.string().optional().describe("기준 날짜(YYYY-MM-DD). 생략 시 오늘 날짜")
       },
       outputSchema: {
+        answerMarkdown: z.string(),
         programs: z.array(
           z.object({
+            rank: z.number(),
             programId: z.string(),
             title: z.string(),
             organization: z.string(),
@@ -112,6 +114,7 @@ export function createSajangnimSupportMcpServer(): McpServer {
           })
         ),
         missingFields: z.array(z.string()),
+        followUpQuestions: z.array(z.string()),
         disclaimer: z.string()
       }
     },
