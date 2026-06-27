@@ -59,9 +59,10 @@ describe("extract_business_profile", () => {
   });
 
   it("예비창업자는 미등록·업력 0으로 처리한다", () => {
-    const profile = extractBusinessProfile("아직 사업자등록 전이고 카페 창업을 준비 중이에요.");
+    const profile = extractBusinessProfile("만 41세이고 아직 사업자등록 전이고 카페 창업을 준비 중이에요.");
     expect(profile.businessForm).toBe("예비창업자");
     expect(profile.isRegistered).toBe(false);
+    expect(profile.age).toBe(41);
     expect(profile.yearsInBusiness).toBe(0);
   });
 
@@ -240,6 +241,7 @@ describe("find_relevant_programs", () => {
     const profile: BusinessProfile = {
       businessForm: "예비창업자",
       isRegistered: false,
+      age: 41,
       region: "경기",
       yearsInBusiness: 0,
       businessType: "음식점/카페",
@@ -253,7 +255,47 @@ describe("find_relevant_programs", () => {
     expect(result.programs.length).toBeGreaterThan(0);
     expect(result.programs[0].title).toContain("생애 최초");
     expect(result.programs[0].matchedReasons.length).toBeGreaterThan(0);
+    expect(result.programs[0].matchedReasons.some((reason) => reason.includes("41세"))).toBe(true);
     expect(result.programs[0].nextAction).not.toContain("선정");
+  });
+});
+
+describe("age eligibility", () => {
+  it("입력된 나이로 만 40세 이상 조건을 직접 판단한다", () => {
+    const profile: BusinessProfile = {
+      businessForm: "예비창업자",
+      isRegistered: false,
+      age: 41,
+      region: "경기",
+      yearsInBusiness: 0,
+      businessType: "음식점/카페",
+      fundingPurpose: "창업자금",
+      keywords: [],
+      missingFields: [],
+      summary: ""
+    };
+    const program: ProgramRequirements = {
+      title: "경기 중장년 예비창업",
+      organization: "샘플기관",
+      regions: ["경기"],
+      eligibleBusinessForms: ["예비창업자"],
+      targetBusinessTypes: [],
+      excludedBusinessTypes: [],
+      minYearsInBusiness: null,
+      maxYearsInBusiness: 0,
+      support: null,
+      additionalEligibilityConditions: ["만 40세 이상 여부 확인 필요"],
+      deadline: null,
+      requiredDocuments: [],
+      evaluationCriteria: [],
+      evidence: [],
+      missingFields: []
+    };
+
+    const result = checkEligibility(profile, program);
+    expect(result.hardBlockers).toHaveLength(0);
+    expect(result.matchedConditions.some((condition) => condition.field === "age")).toBe(true);
+    expect(result.conditionalNotes.some((condition) => condition.reason.includes("만 40세"))).toBe(false);
   });
 });
 

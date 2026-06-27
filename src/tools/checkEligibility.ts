@@ -34,7 +34,7 @@ export function checkEligibility(
   evaluateBusinessForm(profile, program, { hardBlockers, matchedConditions, conditionalNotes, missingFields });
   evaluateYears(profile, program, { hardBlockers, matchedConditions, missingFields });
   evaluateBusinessType(profile, program, { hardBlockers, matchedConditions, conditionalNotes, missingFields });
-  evaluateAdditionalConditions(program, { hardBlockers, matchedConditions, conditionalNotes, missingFields });
+  evaluateAdditionalConditions(profile, program, { hardBlockers, matchedConditions, conditionalNotes, missingFields });
 
   const verdict = decideVerdict({
     hasHardBlocker: hardBlockers.length > 0,
@@ -229,14 +229,62 @@ function evaluateBusinessType(
   }
 }
 
-function evaluateAdditionalConditions(program: ProgramRequirements, buckets: Required<Buckets>): void {
+function evaluateAdditionalConditions(
+  profile: BusinessProfile,
+  program: ProgramRequirements,
+  buckets: Required<Buckets>
+): void {
   const conditions = program.additionalEligibilityConditions ?? [];
   for (const condition of conditions) {
+    const ageResult = evaluateAgeCondition(profile, condition);
+    if (ageResult === "matched") {
+      buckets.matchedConditions.push({
+        field: "age",
+        reason: `나이(${profile.age}세)가 공고의 연령 조건에 부합합니다: ${condition}`
+      });
+      continue;
+    }
+    if (ageResult === "blocked") {
+      buckets.hardBlockers.push({
+        field: "age",
+        reason: `공고의 연령 조건과 현재 나이(${profile.age}세)가 맞지 않습니다: ${condition}`,
+        evidence: findEvidence(program, "additionalEligibilityConditions")
+      });
+      continue;
+    }
+    if (ageResult === "missing") {
+      buckets.missingFields.add("age");
+      continue;
+    }
+
     buckets.conditionalNotes.push({
       field: "additionalEligibilityConditions",
       reason: `공고의 추가 자격조건 확인이 필요합니다: ${condition}`
     });
   }
+}
+
+type AgeConditionResult = "matched" | "blocked" | "missing" | "notAgeCondition";
+
+function evaluateAgeCondition(profile: BusinessProfile, condition: string): AgeConditionResult {
+  const minMatch = condition.match(/만\s*(\d{1,2})\s*세\s*이상/);
+  const rangeMatch = condition.match(/(\d{1,2})\s*[~～-]\s*(\d{1,2})\s*세/);
+
+  if (!minMatch && !rangeMatch) return "notAgeCondition";
+  if (profile.age === null || profile.age === undefined) return "missing";
+
+  if (minMatch) {
+    const minAge = Number(minMatch[1]);
+    return profile.age >= minAge ? "matched" : "blocked";
+  }
+
+  if (rangeMatch) {
+    const minAge = Number(rangeMatch[1]);
+    const maxAge = Number(rangeMatch[2]);
+    return profile.age >= minAge && profile.age <= maxAge ? "matched" : "blocked";
+  }
+
+  return "notAgeCondition";
 }
 
 function typeMatches(businessType: string, candidates: string[]): boolean {

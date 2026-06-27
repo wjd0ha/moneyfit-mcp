@@ -13,6 +13,7 @@ const businessFormSchema = z.enum(["예비창업자", "개인사업자", "법인
 const businessProfileShape = {
   businessForm: businessFormSchema.nullable(),
   isRegistered: z.boolean().nullable(),
+  age: z.number().nullable().default(null),
   region: z.string().nullable(),
   yearsInBusiness: z.number().nullable(),
   businessType: z.string().nullable(),

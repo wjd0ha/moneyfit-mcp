@@ -49,6 +49,7 @@ export function extractBusinessProfile(freeText: string): BusinessProfile {
   const text = normalize(freeText);
 
   const { businessForm, isRegistered } = inferBusinessForm(text);
+  const age = inferAge(text);
   const region = findOneByRules(text, REGION_RULES);
   const businessType = findOneByRules(text, BUSINESS_TYPE_RULES);
   const fundingPurpose = findOneByRules(text, PURPOSE_RULES);
@@ -66,6 +67,7 @@ export function extractBusinessProfile(freeText: string): BusinessProfile {
   return {
     businessForm,
     isRegistered,
+    age,
     region,
     yearsInBusiness,
     businessType,
@@ -75,6 +77,7 @@ export function extractBusinessProfile(freeText: string): BusinessProfile {
     summary: buildSummary({
       businessForm,
       isRegistered,
+      age,
       region,
       yearsInBusiness,
       businessType,
@@ -82,6 +85,18 @@ export function extractBusinessProfile(freeText: string): BusinessProfile {
       missingFields
     })
   };
+}
+
+function inferAge(text: string): number | null {
+  const ageMatch =
+    text.match(/만(\d{1,2})세/) ??
+    text.match(/나이(\d{1,2})/) ??
+    text.match(/(\d{1,2})세/);
+
+  if (!ageMatch) return null;
+  const age = Number(ageMatch[1]);
+  if (!Number.isFinite(age) || age < 14 || age > 100) return null;
+  return age;
 }
 
 function inferBusinessForm(text: string): {
@@ -165,6 +180,7 @@ function buildSummary(input: Omit<BusinessProfile, "keywords" | "summary">): str
   const parts = [
     `사업자 유형: ${input.businessForm ?? "미확인"}`,
     `등록 여부: ${registered}`,
+    `나이: ${input.age === null || input.age === undefined ? "미확인" : `${input.age}세`}`,
     `지역: ${input.region ?? "미확인"}`,
     `업력: ${years}`,
     `업종: ${input.businessType ?? "미확인"}`,

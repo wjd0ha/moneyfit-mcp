@@ -16,6 +16,8 @@ export interface BusinessProfile {
   businessForm: BusinessForm | null;
   /** 사업자등록 여부. 불명확하면 null(추측 금지). */
   isRegistered: boolean | null;
+  /** 대표자/신청자 나이. 공고 연령 조건이 있을 때만 활용한다. */
+  age?: number | null;
   region: string | null;
   /** 업력(년). 예비창업/미등록은 0. 불명확하면 null. */
   yearsInBusiness: number | null;
