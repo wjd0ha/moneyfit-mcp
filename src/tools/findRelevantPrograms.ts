@@ -41,8 +41,15 @@ export async function findRelevantPrograms(
   today = new Date().toISOString().slice(0, 10)
 ): Promise<FindRelevantProgramsResult> {
   const programs = await loadPrograms();
-  const results = programs
+  // 현재 신청 후보에는 마감일이 확인되고 아직 접수 중인 공고만 포함한다.
+  // 마감일이 지났거나 불명확한 데모 공고를 현재 지원 가능 공고처럼 노출하지 않는다.
+  const actionablePrograms = programs.filter((program) => {
+    const status = getDeadlineStatus(program.deadline, today).status;
+    return status === "open" || status === "soon";
+  });
+  const results = actionablePrograms
     .map((program) => rankProgram(businessProfile, program, today))
+    .filter((program) => program.reviewFitScore >= 45)
     .sort((a, b) => b.reviewFitScore - a.reviewFitScore)
     .map((program, index) => ({ ...program, rank: index + 1 }))
     .slice(0, 5);
@@ -109,8 +116,9 @@ function buildAnswerMarkdown(
 ): string {
   if (programs.length === 0) {
     return [
-      "현재 입력 정보로는 바로 보여드릴 후보 공고를 찾지 못했습니다.",
+      "현재 기준 접수 가능한 후보 공고를 찾지 못했습니다.",
       followUpQuestions.length > 0 ? `더 정확히 보려면 ${followUpQuestions.join(", ")}를 알려주세요.` : "",
+      "마감 공고와 마감일이 확인되지 않은 공고는 현재 신청 후보에서 제외했습니다.",
       STANDARD_DISCLAIMER
     ]
       .filter(Boolean)

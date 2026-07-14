@@ -236,6 +236,58 @@ describe("extract_program_requirements", () => {
 });
 
 describe("find_relevant_programs", () => {
+  it("PlayMCP 대화 예시 3개를 추가 질문 없이 실용적인 현재 공고와 연결한다", async () => {
+    clearProgramsCache();
+    const examples = [
+      {
+        text: "서울 성수 카페 2년차 개인사업자야. 경영 컨설팅 찾아줘",
+        expectedTitle: "서리풀 소상공인 창업 클리닉"
+      },
+      {
+        text: "올해 특허 출원 완료한 부천 제조업 3년차 법인이야. 출원비 지원 찾아줘",
+        expectedTitle: "부천시 2026년 7월 중소기업 지식재산"
+      },
+      {
+        text: "중기부 R&D 수행 중인 서울 IT법인 2년차야. 사업화 지원 찾아줘",
+        expectedTitle: "중소기업 R&D 우수성과 50선"
+      }
+    ];
+
+    for (const example of examples) {
+      expect([...example.text].length).toBeLessThanOrEqual(40);
+      const profile = extractBusinessProfile(example.text);
+      expect(profile.missingFields).toEqual([]);
+
+      const result = await findRelevantPrograms(profile, "2026-07-14");
+      expect(result.programs.some((program) => program.title.includes(example.expectedTitle))).toBe(true);
+      expect(result.programs.every((program) => program.deadline !== null && program.deadline >= "2026-07-14")).toBe(true);
+    }
+  });
+
+  it("기준일이 지난 공고와 마감일이 불명확한 공고를 현재 후보에서 제외한다", async () => {
+    clearProgramsCache();
+    const profile: BusinessProfile = {
+      businessForm: "개인사업자",
+      isRegistered: true,
+      age: null,
+      region: "서울",
+      yearsInBusiness: 2,
+      businessType: "음식점/카페",
+      fundingPurpose: "교육/컨설팅",
+      keywords: ["서울", "카페", "컨설팅"],
+      missingFields: [],
+      summary: "서울에서 카페를 운영하는 2년차 개인사업자"
+    };
+
+    const result = await findRelevantPrograms(profile, "2026-07-14");
+    expect(result.programs.length).toBeGreaterThan(0);
+    expect(result.programs[0].title).toContain("서리풀 소상공인 창업 클리닉");
+    expect(result.programs.every((program) => program.deadline !== null && program.deadline >= "2026-07-14")).toBe(true);
+    expect(result.programs.every((program) => program.reviewFitScore >= 45)).toBe(true);
+    expect(result.answerMarkdown).not.toContain("데이터바우처 지원사업 수요기업 모집");
+    expect(result.answerMarkdown).not.toContain("스마트상점 기술보급사업");
+  });
+
   it("일반 사장님 질문 흐름에 맞춰 로컬 DB에서 검토 후보를 찾는다", async () => {
     clearProgramsCache();
     const profile: BusinessProfile = {
@@ -254,17 +306,17 @@ describe("find_relevant_programs", () => {
     const result = await findRelevantPrograms(profile, "2026-06-27");
     expect(result.programs.length).toBeGreaterThan(0);
     expect(result.programs[0].rank).toBe(1);
-    expect(result.programs[0].title).toContain("생애 최초");
+    expect(result.programs[0].title).toContain("G스타 오디션");
     expect(result.answerMarkdown).toContain("현재 정보 기준");
-    expect(result.answerMarkdown).toContain("생애 최초");
+    expect(result.answerMarkdown).toContain("G스타 오디션");
     expect(result.missingFields).toEqual([]);
     expect(result.followUpQuestions).toEqual([]);
     expect(result.programs[0].matchedReasons.length).toBeGreaterThan(0);
-    expect(result.programs[0].matchedReasons.some((reason) => reason.includes("41세"))).toBe(true);
+    expect(result.programs[0].matchedReasons.some((reason) => reason.includes("경기") || reason.includes("예비창업자"))).toBe(true);
     expect(result.programs[0].nextAction).not.toContain("선정");
   });
 
-  it("업종과 목적이 비어도 유용한 후보가 있으면 먼저 보여주고 보완 질문은 별도로 제공한다", async () => {
+  it("업종과 목적이 비면 접수 중 후보와 보완 질문을 함께 제공한다", async () => {
     clearProgramsCache();
     const profile: BusinessProfile = {
       businessForm: "예비창업자",
@@ -280,8 +332,8 @@ describe("find_relevant_programs", () => {
     };
 
     const result = await findRelevantPrograms(profile, "2026-06-28");
-    expect(result.programs[0].title).toContain("생애 최초");
-    expect(result.missingFields).toEqual([]);
+    expect(result.programs[0].title).toContain("G스타 오디션");
+    expect(result.missingFields).toEqual(expect.arrayContaining(["businessType", "fundingPurpose"]));
     expect(result.followUpQuestions).toEqual(expect.arrayContaining(["창업하려는 업종", "필요한 지원 목적"]));
     expect(result.answerMarkdown).toContain("더 정확히 좁히려면");
   });
