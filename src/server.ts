@@ -11,13 +11,13 @@ import type { BusinessProfile, ProgramRequirements } from "./types.js";
 const businessFormSchema = z.enum(["예비창업자", "개인사업자", "법인", "소상공인", "기타"]);
 
 const businessProfileShape = {
-  businessForm: businessFormSchema.nullable(),
-  isRegistered: z.boolean().nullable(),
+  businessForm: businessFormSchema.nullable().default(null),
+  isRegistered: z.boolean().nullable().default(null),
   age: z.number().nullable().default(null),
-  region: z.string().nullable(),
-  yearsInBusiness: z.number().nullable(),
-  businessType: z.string().nullable(),
-  fundingPurpose: z.string().nullable(),
+  region: z.string().nullable().default(null),
+  yearsInBusiness: z.number().nullable().default(null),
+  businessType: z.string().nullable().default(null),
+  fundingPurpose: z.string().nullable().default(null),
   keywords: z.array(z.string()).default([]),
   missingFields: z.array(z.string()).default([]),
   summary: z.string().default("")
@@ -88,7 +88,7 @@ export function createSajangnimSupportMcpServer(): McpServer {
     {
       title: "맞춤 공고 찾기",
       description:
-        "Finds relevant support program candidates from MoneyFit(사장님 머니핏)'s local curated notice database using a structured business profile. If useful candidates exist, present them first and ask follow-up questions only as optional refinements. It returns review fit scores, matched reasons, cautions, and next actions without guaranteeing selection or funding.",
+        "Finds relevant support program candidates from MoneyFit(사장님 머니핏)'s local curated notice database using a structured business profile. Incomplete profiles are accepted, omitted values are treated as unknown, and useful candidates must be presented before optional follow-up questions. It returns review fit scores, matched reasons, cautions, and next actions without guaranteeing selection or funding.",
       annotations: readOnlyAnnotations("Find relevant programs"),
       inputSchema: {
         businessProfile: businessProfileSchema,

@@ -5,7 +5,7 @@ import {
   type CuratedProgram,
   type EligibilityResult
 } from "../types.js";
-import { normalize } from "../text/lexicon.js";
+import { normalize, regionEquivalent } from "../text/lexicon.js";
 import { checkEligibility } from "./checkEligibility.js";
 
 export interface RelevantProgram {
@@ -78,6 +78,18 @@ function rankProgram(profile: BusinessProfile, program: CuratedProgram, today: s
     ...eligibility.conditionalNotes.map((note) => note.reason),
     ...eligibility.missingFields.map((field) => `판정에 필요한 정보가 부족합니다: ${field}`)
   ];
+
+  // 추가 자격조건 확인이 필요한 공고가 사용자의 업종·지원 목적과도 직접 겹치지 않으면
+  // 일반적인 후보처럼 노출하지 않는다. 예: 카페 컨설팅 요청에 R&D 수행기업 전용 공고 추천.
+  const hasSpecificRegionMatch =
+    profile.region !== null &&
+    !program.regions.includes("전국") &&
+    program.regions.some((region) => regionEquivalent(profile.region as string, region));
+
+  if (eligibility.verdict === "CONDITIONAL" && keywordScore === 0 && !hasSpecificRegionMatch) {
+    score = Math.min(score, 40);
+    cautions.push("입력한 업종 또는 지원 목적과 직접 일치하는 근거가 부족합니다.");
+  }
 
   if (deadline.status === "closed") {
     score = Math.min(score, 40);

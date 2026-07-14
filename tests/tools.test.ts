@@ -240,7 +240,7 @@ describe("find_relevant_programs", () => {
     clearProgramsCache();
     const examples = [
       {
-        text: "서울 성수 카페 2년차 개인사업자야. 경영 컨설팅 찾아줘",
+        text: "서울 성수 카페 2년차 개인사업자야. 목적은 경영컨설팅, 지원 찾아줘",
         expectedTitle: "서리풀 소상공인 창업 클리닉"
       },
       {
@@ -284,6 +284,7 @@ describe("find_relevant_programs", () => {
     expect(result.programs[0].title).toContain("서리풀 소상공인 창업 클리닉");
     expect(result.programs.every((program) => program.deadline !== null && program.deadline >= "2026-07-14")).toBe(true);
     expect(result.programs.every((program) => program.reviewFitScore >= 45)).toBe(true);
+    expect(result.answerMarkdown).not.toContain("중소기업 R&D 우수성과 50선");
     expect(result.answerMarkdown).not.toContain("데이터바우처 지원사업 수요기업 모집");
     expect(result.answerMarkdown).not.toContain("스마트상점 기술보급사업");
   });
